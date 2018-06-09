@@ -69,8 +69,8 @@ function handleClick(event) {
     if(Product.totalClicks > 24){
         Product.container.removeEventListener('click', handleClick); // after 24 remove event listener
         // show the list after the last click
-        showTally(); 
-        // makeChart();
+        // showTally(); 
+        makeChart();
     }
     // this is how we direct the user to click on a specefic image
     if (event.target.id === 'image_container'){
@@ -110,14 +110,14 @@ function makeChart(){
         }
     })
 }
-function showTally(){
-    for(var i = 0; i < Product.all.length; i++){
-        var liEl = document.createElement('li');
-        liEl.textContent = Product.all[i].name + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views +' views.';
-        // append the list item to the Product.tally created above globally for the ul
-        Product.tally.appendChild(liEl);
-    }
-}
+// function showTally(){
+//     for(var i = 0; i < Product.all.length; i++){
+//         var liEl = document.createElement('li');
+//         liEl.textContent = Product.all[i].name + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views +' views.';
+//         // append the list item to the Product.tally created above globally for the ul
+//         Product.tally.appendChild(liEl);
+//     }
+// }
 Product.container.addEventListener('click', handleClick);
 loop2Products();
 displayPics();
