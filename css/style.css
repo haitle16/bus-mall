@@ -1,0 +1,15 @@
+html{
+    background-image: url(https://www.hdwallpapers.in/download/dark_aurora-wide.jpg);
+}
+*{
+    color: azure;
+    font-family: 'Helvetica';
+}
+img{
+    width: 175px;
+    margin: 25px;
+    height: 200px;
+}
+body{
+    text-align: center;
+}
