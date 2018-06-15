@@ -6,6 +6,12 @@ Product.totalClicks = 0;
 Product.container = document.getElementById('image_container');
 Product.pics = [document.getElementById('left'), document.getElementById('center'), document.getElementById('right')];
 Product.tally = document.getElementById('tally');
+/////
+var infoProduct;
+var getProductInfo;
+var setClick;
+var getClick;
+/////
 
 function Product(name){
     this.name = name;
@@ -65,13 +71,6 @@ function makeRandom(){
 };
 function handleClick(event) {
     console.log(Product.totalClicks, 'total clicks');
-    // make the clicks stop at 25
-    if(Product.totalClicks > 24){
-        Product.container.removeEventListener('click', handleClick); // after 24 remove event listener
-        // show the list after the last click
-        // showTally(); 
-        makeChart();
-    }
     // this is how we direct the user to click on a specefic image
     if (event.target.id === 'image_container'){
         return alert('need to click on an image!');
@@ -85,7 +84,32 @@ function handleClick(event) {
         }
     }
     displayPics();
+    ////////////////////////////////////////
+    infoProduct = JSON.stringify(Product.all);
+    localStorage.setItem('products', infoProduct);
+    setClick = JSON.stringify(Product.totalClicks);
+    localStorage.setItem('totalClicks', setClick);
+    ////////////////////////////////////////
+      // make the clicks stop at 25
+    if(Product.totalClicks > 24){
+    Product.container.removeEventListener('click', handleClick); // after 24 remove event listener
+    // show the list after the last click
+    // showTally();
+    makeChart();
+    localStorage.removeItem('totalClicks')
+
+    }
 }
+////////////////////////////////
+
+if (localStorage.products){
+    getProductInfo = localStorage.getItem('products');
+    Product.all = JSON.parse(getProductInfo);
+    getClick = localStorage.getItem('totalClicks');
+    Product.totalClicks = JSON.parse(getClick);
+}
+
+/////////////////////////////////
 function makeChart(){
     var labelColors = ['red', 'blue', 'yellow','green','purple','orange','red', 'blue', 'yellow','green','purple','orange','red', 'blue', 'yellow','green','purple','orange','red','blue'];
     var ctx = document.getElementById('chart').getContext('2d');
@@ -110,14 +134,14 @@ function makeChart(){
         }
     })
 }
-// function showTally(){
-//     for(var i = 0; i < Product.all.length; i++){
-//         var liEl = document.createElement('li');
-//         liEl.textContent = Product.all[i].name + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views +' views.';
-//         // append the list item to the Product.tally created above globally for the ul
-//         Product.tally.appendChild(liEl);
-//     }
-// }
-Product.container.addEventListener('click', handleClick);
+///////////////////
+var clearLS = document.getElementById('clearStorage');
+
+clearLS.addEventListener('click', function(){
+    console.log('click it!');
+    localStorage.clear();
+});
+///////////////////
 loop2Products();
 displayPics();
+Product.container.addEventListener('click', handleClick);
