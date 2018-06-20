@@ -6,12 +6,10 @@ Product.totalClicks = 0;
 Product.container = document.getElementById('image_container');
 Product.pics = [document.getElementById('left'), document.getElementById('center'), document.getElementById('right')];
 Product.tally = document.getElementById('tally');
-/////
 var infoProduct;
 var getProductInfo;
 var setClick;
 var getClick;
-/////
 
 function Product(name){
     this.name = name;
@@ -84,23 +82,18 @@ function handleClick(event) {
         }
     }
     displayPics();
-    ////////////////////////////////////////
     infoProduct = JSON.stringify(Product.all);
     localStorage.setItem('products', infoProduct);
     setClick = JSON.stringify(Product.totalClicks);
     localStorage.setItem('totalClicks', setClick);
-    ////////////////////////////////////////
       // make the clicks stop at 25
     if(Product.totalClicks > 24){
     Product.container.removeEventListener('click', handleClick); // after 24 remove event listener
-    // show the list after the last click
-    // showTally();
     makeChart();
     localStorage.removeItem('totalClicks')
 
     }
 }
-////////////////////////////////
 
 if (localStorage.products){
     getProductInfo = localStorage.getItem('products');
@@ -109,7 +102,6 @@ if (localStorage.products){
     Product.totalClicks = JSON.parse(getClick);
 }
 
-/////////////////////////////////
 function makeChart(){
     var labelColors = ['red', 'blue', 'yellow','green','purple','orange','red', 'blue', 'yellow','green','purple','orange','red', 'blue', 'yellow','green','purple','orange','red','blue'];
     var ctx = document.getElementById('chart').getContext('2d');
